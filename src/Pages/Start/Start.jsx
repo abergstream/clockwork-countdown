@@ -23,7 +23,7 @@ const Start = () => {
         className={styles.logo}
         initial={""}
         animate={isClicked ? { left: 10, top: 0 } : ""}
-        transition={{ delay: 1 }}
+        transition={{ delay: 0.75, duration: 0.75 }}
       >
         C
         <motion.div
