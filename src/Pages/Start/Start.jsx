@@ -13,47 +13,53 @@ const Start = () => {
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => {
-      // navigate("./timer");
-    }, 3000);
+      navigate("./timer");
+    }, 2000);
   };
 
   return (
-    <div className={styles.container}>
-      <motion.h3
-        className={styles.logo}
-        initial={""}
-        animate={isClicked ? { left: 10, top: 0 } : ""}
-        transition={{ delay: 0.75, duration: 0.75 }}
+    <>
+      <motion.div
+        initiate={{ opacity: 1 }}
+        animate={{ opacity: isClicked ? 0 : 1 }}
+        transition={{ delay: 1.5, duration: 0.5 }}
+        className={styles.container}
       >
-        C
-        <motion.div
-          initial={"closed"}
-          animate={isClicked ? "open" : "closed"}
-          variants={variants}
-          transition={{ duration: 0.5, easing: "easeOut" }}
-          className={styles.logoName}
+        <motion.h3
+          className={styles.logo}
+          animate={{ opacity: isClicked ? 0 : 1 }}
+          transition={{ delay: 0.75, duration: 0.75 }}
         >
-          lockwork
-        </motion.div>
-        C
-        <motion.div
-          initial={"closed"}
-          animate={isClicked ? "open" : "closed"}
-          variants={variants}
+          C
+          <motion.div
+            initial={"closed"}
+            animate={isClicked ? "open" : "closed"}
+            variants={variants}
+            transition={{ duration: 0.5, easing: "easeOut" }}
+            className={styles.logoName}
+          >
+            lockwork
+          </motion.div>
+          C
+          <motion.div
+            initial={"closed"}
+            animate={isClicked ? "open" : "closed"}
+            variants={variants}
+            transition={{ duration: 0.5, easing: "easeOut" }}
+            className={styles.logoName}
+          >
+            ountdown
+          </motion.div>
+        </motion.h3>
+        <motion.button
+          animate={isClicked ? { opacity: 0 } : { opacity: 1 }}
           transition={{ duration: 0.5, easing: "easeOut" }}
-          className={styles.logoName}
+          onClick={handleClick}
         >
-          ountdown
-        </motion.div>
-      </motion.h3>
-      <motion.button
-        animate={isClicked ? { opacity: 0 } : { opacity: 1 }}
-        transition={{ duration: 0.5, easing: "easeOut" }}
-        onClick={handleClick}
-      >
-        For all your timing needs
-      </motion.button>
-    </div>
+          For all your timing needs
+        </motion.button>
+      </motion.div>
+    </>
   );
 };
 

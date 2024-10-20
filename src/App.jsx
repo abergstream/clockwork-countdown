@@ -4,6 +4,7 @@ import useTimer from "easytimer-react-hook";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Start from "./Pages/Start/Start";
 import TimerStart from "./Pages/TimerStart/TimerStart";
+import Nav from "./Componens/Nav/Nav";
 
 function App() {
   const [timer, isTargetAchieved] = useTimer({
@@ -34,12 +35,16 @@ function App() {
     }
   }, [isTargetAchieved]);
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Start />} />
-        <Route path={"/timer"} element={<TimerStart />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <>
+      <Nav />
+
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Start />} />
+          <Route path={"/timer"} element={<TimerStart />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
