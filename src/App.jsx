@@ -5,43 +5,62 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Start from "./Pages/Start/Start";
 import TimerStart from "./Pages/TimerStart/TimerStart";
 import Nav from "./Componens/Nav/Nav";
+import Pause from "./Pages/Pause/Pause";
+import AnalogTimer from "./Pages/AnalogTimer/AnalogTimer";
 
 function App() {
   const [timer, isTargetAchieved] = useTimer({
     updateWhenTargetAchieved: true,
   });
-  const [isIntervalMode, setIsIntervalMode] = useState(true);
-  const [isPauseBetweenIntervals, setIsPauseBetweenIntervals] = useState(true);
+  const [intervalMode, setIntervalMode] = useState(false);
+  const [pauseMode, setPauseMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
-  const [pauseValue, setpauseValue] = useState(3);
+  const pauseValue = 3;
   const [timerValue, setTimerValue] = useState(5);
 
   const startTimer = () => {
     timer.start({
       countdown: true,
-      startValues: { seconds: isPause ? pauseValue : timerValue },
+      startValues: { minutes: isPause ? pauseValue : timerValue },
     });
-    setTimeout(
-      () => {
-        setIsPause(!isPause);
-      },
-      isPause ? `${pauseValue}000` : `${timerValue}000`
-    );
+    if (intervalMode) {
+      setTimeout(
+        () => {
+          setIsPause(!isPause);
+        },
+        isPause ? `${pauseValue}000` : `${timerValue}000`
+      );
+    }
   };
 
   useEffect(() => {
-    if (isTargetAchieved && isIntervalMode) {
+    if (isTargetAchieved && intervalMode) {
       startTimer();
     }
   }, [isTargetAchieved]);
   return (
     <>
-      <Nav />
-
       <BrowserRouter>
         <Routes>
           <Route index element={<Start />} />
-          <Route path={"/timer"} element={<TimerStart />}></Route>
+          <Route
+            path={"/timerStart"}
+            element={
+              <TimerStart
+                timerValue={timerValue}
+                setTimerValue={setTimerValue}
+                intervalMode={intervalMode}
+                setIntervalMode={setIntervalMode}
+                pauseMode={pauseMode}
+                setPauseMode={setPauseMode}
+                timer={timer}
+                startTimer={startTimer}
+                isPause={isPause}
+              />
+            }
+          />
+          <Route path="/pause" element={<Pause />} />
+          <Route path="/analogTimer" element={<AnalogTimer timer={timer} />} />
         </Routes>
       </BrowserRouter>
     </>

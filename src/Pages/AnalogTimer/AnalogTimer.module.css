@@ -1,0 +1,39 @@
+.container {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 2rem;
+}
+.clockContainer {
+  width: 278px;
+  height: 278px;
+  border-radius: 50%;
+  background: url("./clock.svg");
+  position: relative;
+}
+
+.minutePointer {
+  background-color: #000;
+  width: 43%;
+  top: 50%;
+  left: calc(50% + 5px);
+  transform: translateY(-50%) rotate(270deg);
+  transform-origin: calc(0% - 5px) 50%;
+  height: 4px;
+  border-radius: 4px;
+  position: absolute;
+}
+
+.secondPointer {
+  background-color: #555;
+  width: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) rotate(270deg);
+  transform-origin: 0% 50%;
+  height: 2px;
+  border-radius: 4px;
+  position: absolute;
+}

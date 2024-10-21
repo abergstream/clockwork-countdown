@@ -13,7 +13,7 @@ const Start = () => {
   const handleClick = () => {
     setIsClicked(true);
     setTimeout(() => {
-      navigate("./timer");
+      navigate("./timerStart");
     }, 2000);
   };
 
