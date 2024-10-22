@@ -83,7 +83,11 @@ function App() {
       {location.pathname != "/" &&
         location.pathname != "/timesUp" &&
         location.pathname != "/pause" && (
-          <Header startPath={startPath} setStartPath={setStartPath} />
+          <Header
+            location={location}
+            intervalMode={intervalMode}
+            setStartPath={setStartPath}
+          />
         )}
       <Routes>
         <Route index element={<LandingPage />} />

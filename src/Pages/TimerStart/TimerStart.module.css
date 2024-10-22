@@ -68,11 +68,17 @@
   align-items: center;
   color: #fff;
 }
-
-.checkbox:checked + .dummyBox {
+.checkboxLabel {
+  width: fit-content;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  display: flex;
+  gap: 1rem;
+}
+.checkbox:checked + .checkboxLabel > .dummyBox {
   background-color: #000;
 }
-.checkbox:disabled + .dummyBox {
+.checkbox:disabled + .checkboxLabel > .dummyBox {
   background-color: #fff;
   border-color: #e6e6e6;
 }

@@ -53,9 +53,10 @@
   font-size: 1.6rem;
   line-height: 21px;
   font-weight: bold;
+  letter-spacing: 2px;
   background: transparent;
   border-radius: 5px;
   padding: 1rem;
-  border: 1px solid #aaa;
-  color: #aaa;
+  border: 1px solid #ddd;
+  color: #ddd;
 }

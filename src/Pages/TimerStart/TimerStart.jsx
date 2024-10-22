@@ -90,10 +90,12 @@ const TimerStart = ({
               setIntervalMode((prev) => !prev);
             }}
           />
-          <div className={styles.dummyBox}>
-            <Icon path={mdiClose} size={1.5} />
-          </div>
-          <label htmlFor="intervalMode">Intervals</label>
+          <label className={styles.checkboxLabel} htmlFor="intervalMode">
+            <div className={styles.dummyBox}>
+              <Icon path={mdiClose} size={1.5} />
+            </div>
+            Intervals
+          </label>
         </div>
         <div className={styles.checkboxContainer}>
           <input
@@ -104,10 +106,12 @@ const TimerStart = ({
             disabled={!intervalMode}
             onChange={() => setPauseMode((prev) => !prev)}
           />
-          <div className={styles.dummyBox}>
-            <Icon path={mdiClose} size={1.5} />
-          </div>
-          <label htmlFor="pauseMode">5 min break / interval</label>
+          <label className={styles.checkboxLabel} htmlFor="pauseMode">
+            <div className={styles.dummyBox}>
+              <Icon path={mdiClose} size={1.5} />
+            </div>
+            5 min break / interval
+          </label>
         </div>
         <button
           className={styles.startTimerButton}
