@@ -19,7 +19,21 @@ const TimesUp = ({ timerFunctions }) => {
         >
           SET NEW TIMER
         </button>
-        <img className={styles.pauseIcon} src="pauseIcon.svg" />
+        <motion.img
+          animate={{
+            transform: [
+              "rotate(5deg) translate(-50%, -50%)",
+              "rotate(-5deg) translate(-50%, -50%)",
+              "rotate(5deg) translate(-50%, -50%)",
+              "rotate(-5deg) translate(-50%, -50%)",
+              "rotate(5deg) translate(-50%, -50%)",
+            ],
+            filter: ["blur(2px)", "blur(1px)", "blur(2px)"],
+          }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 0.2 }}
+          className={styles.timesUpIcon}
+          src="alarmIcon.svg"
+        />
       </div>
     </AnimatePresence>
   );

@@ -9,7 +9,6 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import Start from "./Pages/Start/Start";
 import TimerStart from "./Pages/TimerStart/TimerStart";
 import AnalogTimer from "./Pages/AnalogTimer/AnalogTimer";
 import DigitalTimer from "./Pages/DigitalTimer/DigitalTimer";
@@ -17,6 +16,7 @@ import TimesUp from "./Pages/TimesUp/TimesUp";
 import TimerPause from "./Pages/TimerPause/TimerPause";
 import TextTimer from "./Pages/TextTimer/TextTimer";
 import Header from "./Components/Header/Header";
+import LandingPage from "./Pages/LadingPage/LandingPage";
 
 function App() {
   const navigate = useNavigate();
@@ -26,18 +26,18 @@ function App() {
   const [intervalMode, setIntervalMode] = useState(false);
   const [pauseMode, setPauseMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
-  const [currentPath, setCurrentPath] = useState("");
-  const [startPath, setStartPath] = useState("");
+  const [startPath, setStartPath] = useState("/analogTimer");
   const [timerValue, setTimerValue] = useState(5);
   const [isStarted, setIsStarted] = useState(false);
   const location = useLocation();
-  const pauseValue = 200;
+  const pauseValue = 5;
   const startTimer = () => {
     setIsStarted(true);
     timer.start({
       countdown: true,
-      // startValues: { minutes: isPause ? pauseValue : timerValue },
-      startValues: { seconds: isPause ? pauseValue : timerValue },
+      startValues: { minutes: isPause ? pauseValue : timerValue },
+      // startValues: { seconds: isPause ? pauseValue : timerValue },
+      // startValues: { minutes: 2, seconds: 10 },
     });
   };
 
@@ -71,6 +71,7 @@ function App() {
       navigate(startPath);
     }
   }, [startPath]);
+
   const timerFunctions = {
     timer: timer,
     startPath: startPath,
@@ -85,7 +86,7 @@ function App() {
           <Header startPath={startPath} setStartPath={setStartPath} />
         )}
       <Routes>
-        <Route index element={<Start />} />
+        <Route index element={<LandingPage />} />
         <Route
           path={"/timerStart"}
           element={
@@ -117,12 +118,7 @@ function App() {
         />
         <Route
           path="/timesUp"
-          element={
-            <TimesUp
-              isTargetAchieved={isTargetAchieved}
-              timerFunctions={timerFunctions}
-            />
-          }
+          element={<TimesUp timerFunctions={timerFunctions} />}
         />
         <Route
           path="/pause"

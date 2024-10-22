@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./AnalogTimer.module.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Header from "../../Components/Header/Header";
 import ButtonAbort from "../../Components/Buttons/Buttons";
 // 6 * second
 const AnalogTimer = ({ timerFunctions }) => {
@@ -14,21 +13,24 @@ const AnalogTimer = ({ timerFunctions }) => {
   const minutes = timer.getTimeValues().minutes;
 
   // Added 1 / 2 to seconds / minutes to get the rotation to work :)
-  const [secondRotation, setSecondRotation] = useState(270 + (seconds + 1) * 6);
-  const [minuteRotation, setMinuteRotation] = useState(270 + (minutes + 2) * 6);
+  const [secondRotation, setSecondRotation] = useState(270 + (seconds + 2) * 6);
+  const [minuteRotation, setMinuteRotation] = useState(270 + (minutes + 1) * 6);
 
   useEffect(() => {
-    setSecondRotation(270 + seconds * 6);
-
-    if (minutes === 0 && seconds === 0) {
-      setMinuteRotation(270 + (minutes + 2) * 6);
+    let isMounted = true;
+    if (isMounted) {
+      setSecondRotation((prev) => prev - 6);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, [seconds]);
 
   useEffect(() => {
-    setMinuteRotation(minuteRotation - 6);
+    setMinuteRotation(270 + (minutes + 1) * 6);
   }, [minutes]);
-
+  const test = "hyejhej";
   return (
     <div className="container">
       <div className={styles.clockContainer}>
@@ -40,6 +42,10 @@ const AnalogTimer = ({ timerFunctions }) => {
           animate={{ rotate: `${secondRotation}deg`, y: "-50%" }}
           className={styles.secondPointer}
         ></motion.div>
+        <div className={styles.timeContainer}>
+          {minutes.toString().length == 1 ? `0${minutes}` : minutes}:
+          {seconds.toString().length == 1 ? `0${seconds}` : seconds}
+        </div>
       </div>
       <ButtonAbort timerFunctions={timerFunctions} />
     </div>

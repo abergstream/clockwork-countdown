@@ -4,9 +4,9 @@
   top: 0;
   width: 100svw;
   height: 100svh;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
-  z-index: 2;
+  z-index: 9;
   display: flex;
   flex-direction: column;
   justify-content: center;

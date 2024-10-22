@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "./TimerStart.module.css";
 import Icon from "@mdi/react";
-import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
+import { mdiChevronLeft, mdiChevronRight, mdiClose } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
 const TimerStart = ({
   timerValue,
@@ -12,7 +12,6 @@ const TimerStart = ({
   pauseMode,
   setPauseMode,
   startTimer,
-  isPause,
   startPath,
 }) => {
   const [direction, setDirection] = useState("");
@@ -78,25 +77,40 @@ const TimerStart = ({
         transition={{ duration: 1 }}
         className={styles.container}
       >
-        <div>
-          <label>
-            <input
-              type="checkbox"
-              checked={intervalMode}
-              onChange={() => setIntervalMode(!intervalMode)}
-            />
-            Intervals {isPause && "hej"}
-          </label>
-        </div>
-        <div>
+        <div className={styles.checkboxContainer}>
           <input
+            className={styles.checkbox}
+            id="intervalMode"
+            type="checkbox"
+            checked={intervalMode}
+            onChange={() => {
+              if (intervalMode) {
+                setPauseMode(false);
+              }
+              setIntervalMode((prev) => !prev);
+            }}
+          />
+          <div className={styles.dummyBox}>
+            <Icon path={mdiClose} size={1.5} />
+          </div>
+          <label htmlFor="intervalMode">Intervals</label>
+        </div>
+        <div className={styles.checkboxContainer}>
+          <input
+            className={styles.checkbox}
+            id="pauseMode"
             type="checkbox"
             checked={pauseMode}
-            onChange={() => setPauseMode(!pauseMode)}
-          />{" "}
-          5 min break / interval
+            disabled={!intervalMode}
+            onChange={() => setPauseMode((prev) => !prev)}
+          />
+          <div className={styles.dummyBox}>
+            <Icon path={mdiClose} size={1.5} />
+          </div>
+          <label htmlFor="pauseMode">5 min break / interval</label>
         </div>
         <button
+          className={styles.startTimerButton}
           onClick={() => {
             startTimer();
             navigate(startPath ? startPath : "/analogTimer");

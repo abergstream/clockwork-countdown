@@ -18,10 +18,12 @@
   position: absolute;
   top: 40%;
   z-index: 98;
+  font-size: 3rem;
 }
 .logoName {
   color: #aaa;
   overflow: hidden;
+  font-size: 3rem;
 }
 .transition {
   position: absolute;
@@ -29,4 +31,7 @@
   height: 100%;
   background-color: #fff;
   z-index: 99;
+}
+.text {
+  font-size: 1.8rem;
 }

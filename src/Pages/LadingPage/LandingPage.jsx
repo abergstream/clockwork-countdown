@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import styles from "./Start.module.css";
+import styles from "./LandingPage.module.css";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-const Start = () => {
+const LandingPage = () => {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
   const variants = {
@@ -26,6 +26,7 @@ const Start = () => {
         className={styles.container}
       >
         <motion.h3
+          onClick={handleClick}
           className={styles.logo}
           animate={{ opacity: isClicked ? 0 : 1 }}
           transition={{ delay: 0.75, duration: 0.75 }}
@@ -51,43 +52,17 @@ const Start = () => {
             ountdown
           </motion.div>
         </motion.h3>
-        <motion.button
+        <motion.div
+          className={styles.text}
           animate={isClicked ? { opacity: 0 } : { opacity: 1 }}
           transition={{ duration: 0.5, easing: "easeOut" }}
           onClick={handleClick}
         >
           For all your timing needs
-        </motion.button>
+        </motion.div>
       </motion.div>
     </>
   );
 };
 
-export default Start;
-
-{
-  /* <div>
-<div>
-  <label>
-    <input
-      type="checkbox"
-      checked={isIntervalMode}
-      onChange={() => setIsIntervalMode(!intervals)}
-    />
-    Intervaller
-  </label>
-  <label>
-    <input
-      type="checkbox"
-      checked={isPauseBetweenIntervals}
-      onChange={() =>
-        setIsPauseBetweenIntervals(!isPauseBetweenIntervals)
-      }
-    />{" "}
-    Pause mellan intervaller
-  </label>
-</div>
-{isPause && <h4> Pause</h4>}
-<h3>{timer.getTimeValues().toString()}</h3>
-</div> */
-}
+export default LandingPage;

@@ -25,11 +25,12 @@
 .test {
   background: url("./alarmIcon.svg");
 }
-.pauseIcon {
+.timesUpIcon {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  transform-origin: 0% 0%;
 }
 .timesUpTitle {
   font-size: 3.6rem;
