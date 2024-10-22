@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 import Nav from "../Nav/Nav";
 import { AnimatePresence, motion } from "framer-motion";
-const Header = ({ location, intervalMode, setStartPath }) => {
+import { useLocation } from "react-router-dom";
+const Header = ({ intervalMode, setStartPath }) => {
+  const location = useLocation();
   const [toggleNav, setToggleNav] = useState(false);
   const getTimerMode = () => {
     if (location.pathname === "/timerStart") {

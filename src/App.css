@@ -22,7 +22,7 @@ body {
   border: 1px solid #222;
   border-radius: 5px;
   padding: 1rem 2rem;
-  opacity: 0.6;
+  letter-spacing: 1px;
   background: transparent;
-  color: #222;
+  color: #111;
 }
