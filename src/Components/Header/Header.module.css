@@ -1,0 +1,21 @@
+.container {
+  position: absolute;
+  width: 100%;
+}
+.buttonNav {
+  position: absolute;
+  left: 1rem;
+  top: 0.5rem;
+  background: transparent;
+  padding: 0;
+  border: 0;
+
+  z-index: 99;
+  transition: color 1s;
+}
+.buttonNavClosed {
+  color: #000;
+}
+.buttonNavOpen {
+  color: #fff;
+}

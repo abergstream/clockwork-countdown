@@ -13,6 +13,7 @@ const TimerStart = ({
   setPauseMode,
   startTimer,
   isPause,
+  startPath,
 }) => {
   const [direction, setDirection] = useState("");
   const navigate = useNavigate();
@@ -33,12 +34,7 @@ const TimerStart = ({
     }
   };
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: [0, 1] }}
-      transition={{ duration: 1 }}
-      className={styles.container}
-    >
+    <>
       <div className={styles.timeWrapper}>
         <AnimatePresence>
           <motion.div
@@ -65,7 +61,7 @@ const TimerStart = ({
           onClick={decreaseTimerValue}
           disabled={timerValue === 1}
         >
-          <Icon path={mdiChevronLeft} size={2} />
+          <Icon path={mdiChevronLeft} size={3} />
         </button>
         <div className={styles.minutesText}>minutes</div>
         <button
@@ -73,36 +69,43 @@ const TimerStart = ({
           onClick={increaseTimerValue}
           disabled={timerValue === 60}
         >
-          <Icon path={mdiChevronRight} size={2} />
+          <Icon path={mdiChevronRight} size={3} />
         </button>
       </div>
-      <div>
-        <label>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: [0, 1] }}
+        transition={{ duration: 1 }}
+        className={styles.container}
+      >
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              checked={intervalMode}
+              onChange={() => setIntervalMode(!intervalMode)}
+            />
+            Intervals {isPause && "hej"}
+          </label>
+        </div>
+        <div>
           <input
             type="checkbox"
-            checked={intervalMode}
-            onChange={() => setIntervalMode(!intervalMode)}
-          />
-          Intervals {isPause && "hej"}
-        </label>
-      </div>
-      <div>
-        <input
-          type="checkbox"
-          checked={pauseMode}
-          onChange={() => setPauseMode(!pauseMode)}
-        />{" "}
-        5 min break / interval
-      </div>
-      <button
-        onClick={() => {
-          startTimer();
-          navigate("/analogTimer");
-        }}
-      >
-        START TIMER
-      </button>
-    </motion.div>
+            checked={pauseMode}
+            onChange={() => setPauseMode(!pauseMode)}
+          />{" "}
+          5 min break / interval
+        </div>
+        <button
+          onClick={() => {
+            startTimer();
+            navigate(startPath ? startPath : "/analogTimer");
+          }}
+        >
+          START TIMER
+        </button>
+      </motion.div>
+    </>
   );
 };
 

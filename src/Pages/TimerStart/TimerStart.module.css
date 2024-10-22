@@ -14,7 +14,11 @@
   height: 100px;
   gap: 30px;
   margin: 0 0 50px;
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
 }
 .minutes {
   position: absolute;

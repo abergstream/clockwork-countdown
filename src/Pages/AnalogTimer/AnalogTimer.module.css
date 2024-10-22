@@ -1,17 +1,12 @@
-.container {
-  height: 100svh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 0 2rem;
-}
 .clockContainer {
   width: 278px;
   height: 278px;
   border-radius: 50%;
   background: url("./clock.svg");
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
   position: relative;
+  flex: 1;
 }
 
 .minutePointer {

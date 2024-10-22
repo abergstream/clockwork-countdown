@@ -1,9 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 * {
   box-sizing: border-box;
 }
-#root {
+html {
+  font-size: 10px;
 }
+
 body {
   margin: 0;
+  font-family: "PT Sans";
+}
+.container {
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0 4rem;
+}
+.abort-button {
+  border: 1px solid #222;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  opacity: 0.6;
+  background: transparent;
+  color: #222;
 }

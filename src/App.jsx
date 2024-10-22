@@ -1,68 +1,134 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import useTimer from "easytimer-react-hook";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import Start from "./Pages/Start/Start";
 import TimerStart from "./Pages/TimerStart/TimerStart";
-import Nav from "./Componens/Nav/Nav";
-import Pause from "./Pages/Pause/Pause";
 import AnalogTimer from "./Pages/AnalogTimer/AnalogTimer";
+import DigitalTimer from "./Pages/DigitalTimer/DigitalTimer";
+import TimesUp from "./Pages/TimesUp/TimesUp";
+import TimerPause from "./Pages/TimerPause/TimerPause";
+import TextTimer from "./Pages/TextTimer/TextTimer";
+import Header from "./Components/Header/Header";
 
 function App() {
+  const navigate = useNavigate();
   const [timer, isTargetAchieved] = useTimer({
     updateWhenTargetAchieved: true,
   });
   const [intervalMode, setIntervalMode] = useState(false);
   const [pauseMode, setPauseMode] = useState(false);
   const [isPause, setIsPause] = useState(false);
-  const pauseValue = 3;
+  const [currentPath, setCurrentPath] = useState("");
+  const [startPath, setStartPath] = useState("");
   const [timerValue, setTimerValue] = useState(5);
-
+  const [isStarted, setIsStarted] = useState(false);
+  const location = useLocation();
+  const pauseValue = 200;
   const startTimer = () => {
+    setIsStarted(true);
     timer.start({
       countdown: true,
-      startValues: { minutes: isPause ? pauseValue : timerValue },
+      // startValues: { minutes: isPause ? pauseValue : timerValue },
+      startValues: { seconds: isPause ? pauseValue : timerValue },
     });
-    if (intervalMode) {
-      setTimeout(
-        () => {
-          setIsPause(!isPause);
-        },
-        isPause ? `${pauseValue}000` : `${timerValue}000`
-      );
-    }
   };
 
   useEffect(() => {
     if (isTargetAchieved && intervalMode) {
-      startTimer();
+      if (pauseMode) {
+        setIsPause((prev) => !prev);
+      } else {
+        startTimer();
+      }
+    }
+    if (isTargetAchieved && !intervalMode) {
+      setIsStarted(false);
+      navigate("/timesUp");
     }
   }, [isTargetAchieved]);
+
+  useEffect(() => {
+    if (isStarted) {
+      if (isPause) {
+        navigate("/pause");
+      } else {
+        navigate(startPath ? startPath : "/analogTimer");
+      }
+      startTimer();
+    }
+  }, [isPause]);
+
+  useEffect(() => {
+    if (startPath && isStarted && !isPause) {
+      navigate(startPath);
+    }
+  }, [startPath]);
+  const timerFunctions = {
+    timer: timer,
+    startPath: startPath,
+    setIsPause: setIsPause,
+    setIsStarted: setIsStarted,
+  };
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Start />} />
-          <Route
-            path={"/timerStart"}
-            element={
-              <TimerStart
-                timerValue={timerValue}
-                setTimerValue={setTimerValue}
-                intervalMode={intervalMode}
-                setIntervalMode={setIntervalMode}
-                pauseMode={pauseMode}
-                setPauseMode={setPauseMode}
-                timer={timer}
-                startTimer={startTimer}
-                isPause={isPause}
-              />
-            }
-          />
-          <Route path="/pause" element={<Pause />} />
-          <Route path="/analogTimer" element={<AnalogTimer timer={timer} />} />
-        </Routes>
-      </BrowserRouter>
+      {location.pathname != "/" &&
+        location.pathname != "/timesUp" &&
+        location.pathname != "/pause" && (
+          <Header startPath={startPath} setStartPath={setStartPath} />
+        )}
+      <Routes>
+        <Route index element={<Start />} />
+        <Route
+          path={"/timerStart"}
+          element={
+            <TimerStart
+              timerValue={timerValue}
+              setTimerValue={setTimerValue}
+              intervalMode={intervalMode}
+              setIntervalMode={setIntervalMode}
+              pauseMode={pauseMode}
+              setPauseMode={setPauseMode}
+              timer={timer}
+              startTimer={startTimer}
+              isPause={isPause}
+              startPath={startPath}
+            />
+          }
+        />
+        <Route
+          path="/analogTimer"
+          element={<AnalogTimer timerFunctions={timerFunctions} />}
+        />
+        <Route
+          path="/digitalTimer"
+          element={<DigitalTimer timerFunctions={timerFunctions} />}
+        />
+        <Route
+          path="/textTimer"
+          element={<TextTimer timerFunctions={timerFunctions} />}
+        />
+        <Route
+          path="/timesUp"
+          element={
+            <TimesUp
+              isTargetAchieved={isTargetAchieved}
+              timerFunctions={timerFunctions}
+            />
+          }
+        />
+        <Route
+          path="/pause"
+          element={<TimerPause timerFunctions={timerFunctions} />}
+        />
+      </Routes>
     </>
   );
 }
