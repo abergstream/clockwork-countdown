@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { motion } from "framer-motion";
 const ButtonAbort = ({ timerFunctions }) => {
   const { timer, setIsPause, setIsStarted } = timerFunctions;
   const navigate = useNavigate();
@@ -14,14 +14,16 @@ const ButtonAbort = ({ timerFunctions }) => {
     }
   }, [isClicked]);
   return (
-    <button
+    <motion.button
+      whileTap={{ scale: 0.96 }}
+      transition={{ ease: "easeOut", duration: 0.15 }}
       className="abort-button"
       onClick={() => {
         setIsClicked(true);
       }}
     >
       ABORT TIMER
-    </button>
+    </motion.button>
   );
 };
 

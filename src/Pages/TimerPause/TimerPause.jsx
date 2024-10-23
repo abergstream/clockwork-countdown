@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./TimerPause.module.css";
+import { motion } from "framer-motion";
 const TimerPause = ({ timerFunctions }) => {
   const { timer, setIsPause, startPath } = timerFunctions;
-  const navigate = useNavigate();
   const minutes = timer.getTimeValues().minutes;
   const seconds = timer.getTimeValues().seconds;
   return (
@@ -12,16 +12,17 @@ const TimerPause = ({ timerFunctions }) => {
       <div className={styles.timeLeft}>
         {minutes}.{seconds}
       </div>
-      <button
+      <motion.button
+        whileTap={{ scale: 0.97 }}
+        transition={{ ease: "easeOut", duration: 0.15 }}
         className={styles.leavePauseButton}
         onClick={() => {
           timer.stop();
           setIsPause(false);
-          navigate(startPath);
         }}
       >
         NO PAUSE, GO NOW!
-      </button>
+      </motion.button>
       <img className={styles.pauseIcon} src="pauseIcon.svg" />
     </div>
   );

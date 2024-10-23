@@ -9,7 +9,6 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import TimerStart from "./Pages/TimerStart/TimerStart";
 import AnalogTimer from "./Pages/AnalogTimer/AnalogTimer";
 import DigitalTimer from "./Pages/DigitalTimer/DigitalTimer";
 import TimesUp from "./Pages/TimesUp/TimesUp";
@@ -17,6 +16,7 @@ import TimerPause from "./Pages/TimerPause/TimerPause";
 import TextTimer from "./Pages/TextTimer/TextTimer";
 import Header from "./Components/Header/Header";
 import LandingPage from "./Pages/LadingPage/LandingPage";
+import SetTimer from "./Pages/SetTimer/SetTimer";
 
 function App() {
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ function App() {
     setIsStarted(true);
     timer.start({
       countdown: true,
-      startValues: { minutes: isPause ? pauseValue : timerValue },
+      startValues: { seconds: isPause ? pauseValue : timerValue },
       // startValues: { seconds: isPause ? pauseValue : timerValue },
     });
   };
@@ -73,7 +73,6 @@ function App() {
 
   const timerFunctions = {
     timer: timer,
-    startPath: startPath,
     setIsPause: setIsPause,
     setIsStarted: setIsStarted,
   };
@@ -89,16 +88,14 @@ function App() {
         <Route
           path={"/timerStart"}
           element={
-            <TimerStart
+            <SetTimer
               timerValue={timerValue}
               setTimerValue={setTimerValue}
               intervalMode={intervalMode}
               setIntervalMode={setIntervalMode}
               pauseMode={pauseMode}
               setPauseMode={setPauseMode}
-              timer={timer}
               startTimer={startTimer}
-              isPause={isPause}
               startPath={startPath}
             />
           }

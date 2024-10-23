@@ -73,7 +73,7 @@ const DigitalTimer = ({ timerFunctions }) => {
                 exit="closed"
                 variants={variantsNumber}
                 className={styles.test}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
               >
                 {minutesFirst}
               </motion.div>
@@ -91,7 +91,7 @@ const DigitalTimer = ({ timerFunctions }) => {
                 exit="closed"
                 variants={variantsNumber}
                 className={styles.test}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
               >
                 {minutesSecond}
               </motion.div>
@@ -109,7 +109,7 @@ const DigitalTimer = ({ timerFunctions }) => {
                 exit="closed"
                 variants={variantsNumber}
                 className={styles.test}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
               >
                 {secondsFirst}
               </motion.div>

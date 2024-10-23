@@ -10,7 +10,9 @@ const TimesUp = ({ timerFunctions }) => {
     <AnimatePresence>
       <div className={styles.container}>
         <h2 className={styles.timesUpTitle}>Times up!</h2>
-        <button
+        <motion.button
+          whileTap={{ scale: 0.97 }}
+          transition={{ ease: "easeOut", duration: 0.15 }}
           className={styles.leaveTimesUpButton}
           onClick={() => {
             setIsPause(false);
@@ -18,7 +20,7 @@ const TimesUp = ({ timerFunctions }) => {
           }}
         >
           SET NEW TIMER
-        </button>
+        </motion.button>
         <motion.img
           animate={{
             transform: [
