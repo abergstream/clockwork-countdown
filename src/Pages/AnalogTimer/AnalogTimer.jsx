@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./AnalogTimer.module.css";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import ButtonAbort from "../../Components/Buttons/Buttons";
 // 6 * second
 const AnalogTimer = ({ timerFunctions }) => {
   const { timer } = timerFunctions;
-
-  const navigate = useNavigate();
 
   const seconds = timer.getTimeValues().seconds;
   const minutes = timer.getTimeValues().minutes;

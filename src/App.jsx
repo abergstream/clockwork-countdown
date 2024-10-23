@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import useTimer from "easytimer-react-hook";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import AnalogTimer from "./Pages/AnalogTimer/AnalogTimer";
 import DigitalTimer from "./Pages/DigitalTimer/DigitalTimer";
 import TimesUp from "./Pages/TimesUp/TimesUp";
@@ -35,7 +28,7 @@ function App() {
     setIsStarted(true);
     timer.start({
       countdown: true,
-      startValues: { seconds: isPause ? pauseValue : timerValue },
+      startValues: { minutes: isPause ? pauseValue : timerValue },
       // startValues: { seconds: isPause ? pauseValue : timerValue },
     });
   };
