@@ -45,7 +45,7 @@ const DigitalTimer = ({ timerFunctions }) => {
   const variants = {
     closed: {
       rotateX: 360,
-      zIndex: 1,
+      zIndex: 2,
       opacity: [1, 1, 1, 1, 1, 1, 1, 0],
       filter: ["blur(0)", "blur(0)", "blur(2px)"],
     },
@@ -62,11 +62,11 @@ const DigitalTimer = ({ timerFunctions }) => {
           <AnimatePresence>
             <motion.div
               key={`firstMin${minutesFirst}`}
-              initial={{ x: 35 }}
-              animate={{ x: 35 }}
+              initial={{ x: 35, zIndex: 0 }}
+              animate={{ x: 35, zIndex: 1 }}
               exit="closed"
               variants={variants}
-              transition={{ duration: 0.75, delay: 0.6, ease: "easeIn" }}
+              transition={{ duration: 0.5, delay: 0.6, ease: "easeIn" }}
               className={styles.flipBox}
             >
               <motion.div
@@ -80,11 +80,11 @@ const DigitalTimer = ({ timerFunctions }) => {
             </motion.div>
             <motion.div
               key={`secondMin${minutesSecond}`}
-              initial={{ x: 110 }}
-              animate={{ x: 110 }}
+              initial={{ x: 110, zIndex: 0 }}
+              animate={{ x: 110, zIndex: 1 }}
               exit="closed"
               variants={variants}
-              transition={{ duration: 0.75, delay: 0.4, ease: "easeIn" }}
+              transition={{ duration: 0.5, delay: 0.4, ease: "easeIn" }}
               className={styles.flipBox}
             >
               <motion.div
@@ -98,11 +98,11 @@ const DigitalTimer = ({ timerFunctions }) => {
             </motion.div>
             <motion.div
               key={`first${secondsFirst}`}
-              initial={{ x: 190 }}
-              animate={{ x: 190 }}
+              initial={{ x: 190, zIndex: 0 }}
+              animate={{ x: 190, zIndex: 1 }}
               exit="closed"
               variants={variants}
-              transition={{ duration: 0.75, delay: 0.2, ease: "easeIn" }}
+              transition={{ duration: 0.5, delay: 0.2, ease: "easeIn" }}
               className={styles.flipBox}
             >
               <motion.div
@@ -120,14 +120,14 @@ const DigitalTimer = ({ timerFunctions }) => {
               animate={{ x: 265 }}
               exit="closed"
               variants={variants}
-              transition={{ duration: 0.75, ease: "easeIn" }}
+              transition={{ duration: 0.5, ease: "easeIn" }}
               className={styles.flipBox}
             >
               <motion.div
                 exit="closed"
                 variants={variantsNumber}
                 className={styles.test}
-                transition={{ duration: 0.75 }}
+                transition={{ duration: 0.5 }}
               >
                 {secondsSecond}
               </motion.div>
