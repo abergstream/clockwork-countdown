@@ -29,7 +29,6 @@ function App() {
     timer.start({
       countdown: true,
       startValues: { minutes: isPause ? pauseValue : timerValue },
-      // startValues: { seconds: isPause ? pauseValue : timerValue },
     });
   };
 
@@ -74,7 +73,11 @@ function App() {
       {location.pathname != "/" &&
         location.pathname != "/timesUp" &&
         location.pathname != "/pause" && (
-          <Header intervalMode={intervalMode} setStartPath={setStartPath} />
+          <Header
+            intervalMode={intervalMode}
+            startPath={startPath}
+            setStartPath={setStartPath}
+          />
         )}
       <Routes>
         <Route index element={<LandingPage />} />

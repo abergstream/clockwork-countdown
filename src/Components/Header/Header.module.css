@@ -12,6 +12,7 @@
   border: 0;
   z-index: 99;
   transition: color 1s;
+  transform-origin: 50% 50%;
 }
 .navIcon {
   position: absolute;

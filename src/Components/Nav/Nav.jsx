@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Nav.module.css";
 import { AnimatePresence, motion } from "framer-motion";
-const Nav = ({ toggleNav, setToggleNav, setStartPath }) => {
+const Nav = ({ toggleNav, setToggleNav, startPath, setStartPath }) => {
   const variants = {
     open: {
       x: 0,
@@ -50,6 +50,11 @@ const Nav = ({ toggleNav, setToggleNav, setStartPath }) => {
                 key={button}
                 className={styles.navItem}
                 variants={variantsChildren}
+                whileTap={{ scale: 0.97 }}
+                style={{
+                  textDecoration:
+                    buttonDestinations[index] == startPath ? "underline" : "",
+                }}
                 onClick={() => {
                   setStartPath(button);
                   setToggleNav(false);

@@ -4,6 +4,7 @@ import styles from "./DigitalTimer.module.css";
 import { AnimatePresence, motion } from "framer-motion";
 const DigitalTimer = ({ timerFunctions }) => {
   const { timer } = timerFunctions;
+  const hours = timer.getTimeValues().hours;
   const seconds = timer.getTimeValues().seconds;
   const minutes = timer.getTimeValues().minutes;
   const [secondsFirst, setSecondsFirst] = useState(
@@ -15,14 +16,14 @@ const DigitalTimer = ({ timerFunctions }) => {
       : seconds.toString().substring(0, 1)
   );
   const [minutesFirst, setMinutesFirst] = useState(
-    minutes > 9 ? minutes.toString().substring(0, 1) : 0
+    hours == 0 ? (minutes > 9 ? minutes.toString().substring(0, 1) : 0) : 6
   );
   const [minutesSecond, setMinutesSecond] = useState(
     minutes > 9
       ? minutes.toString().substring(1, 2)
       : minutes.toString().substring(0, 1)
   );
-
+  console.log("Minutes first: " + minutesFirst, hours, minutes);
   useEffect(() => {
     const firstNumber = seconds > 9 ? seconds.toString().substring(0, 1) : 0;
     const secondNumber =
@@ -33,7 +34,8 @@ const DigitalTimer = ({ timerFunctions }) => {
     setSecondsSecond(secondNumber);
   }, [seconds]);
   useEffect(() => {
-    const firstNumber = minutes > 9 ? minutes.toString().substring(0, 1) : 0;
+    const firstNumber =
+      hours == 0 ? (minutes > 9 ? minutes.toString().substring(0, 1) : 0) : 6;
     const secondNumber =
       minutes > 9
         ? minutes.toString().substring(1, 2)
@@ -62,7 +64,7 @@ const DigitalTimer = ({ timerFunctions }) => {
           <AnimatePresence>
             <motion.div
               key={`firstMin${minutesFirst}`}
-              initial={{ x: 35, zIndex: 0 }}
+              initial={{ x: 35, zIndex: 0, backgroundColor: "#e4ecf5" }}
               animate={{ x: 35, zIndex: 1 }}
               exit="closed"
               variants={variants}
@@ -80,7 +82,7 @@ const DigitalTimer = ({ timerFunctions }) => {
             </motion.div>
             <motion.div
               key={`secondMin${minutesSecond}`}
-              initial={{ x: 110, zIndex: 0 }}
+              initial={{ x: 110, zIndex: 0, backgroundColor: "#e4ecf5" }}
               animate={{ x: 110, zIndex: 1 }}
               exit="closed"
               variants={variants}
@@ -98,7 +100,7 @@ const DigitalTimer = ({ timerFunctions }) => {
             </motion.div>
             <motion.div
               key={`first${secondsFirst}`}
-              initial={{ x: 190, zIndex: 0 }}
+              initial={{ x: 190, zIndex: 0, backgroundColor: "#e6f0de" }}
               animate={{ x: 190, zIndex: 1 }}
               exit="closed"
               variants={variants}
@@ -116,8 +118,8 @@ const DigitalTimer = ({ timerFunctions }) => {
             </motion.div>
             <motion.div
               key={secondsSecond}
-              initial={{ x: 265 }}
-              animate={{ x: 265 }}
+              initial={{ x: 265, zIndex: 0, backgroundColor: "#e6f0de" }}
+              animate={{ x: 265, zIndex: 1 }}
               exit="closed"
               variants={variants}
               transition={{ duration: 0.5, ease: "easeIn" }}

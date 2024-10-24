@@ -3,12 +3,20 @@ import styles from "./Header.module.css";
 import Nav from "../Nav/Nav";
 import { AnimatePresence, motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
-const Header = ({ intervalMode, setStartPath }) => {
+const Header = ({ intervalMode, startPath, setStartPath }) => {
   const location = useLocation();
   const [toggleNav, setToggleNav] = useState(false);
+
   const getTimerMode = () => {
     if (location.pathname === "/timerStart") {
-      return "";
+      let title = "";
+      for (let i = 1; i < startPath.length; i++) {
+        title +=
+          startPath[i] !== startPath[i].toUpperCase()
+            ? startPath[i].toUpperCase()
+            : ` ${startPath[i]}`;
+      }
+      return title;
     }
     return intervalMode ? "interval" : "timer";
   };
@@ -17,10 +25,11 @@ const Header = ({ intervalMode, setStartPath }) => {
       <Nav
         toggleNav={toggleNav}
         setToggleNav={setToggleNav}
-        startPath={setStartPath}
+        startPath={startPath}
         setStartPath={setStartPath}
       />
-      <button
+      <motion.button
+        whileTap={{ scale: 0.9, x: 1.55, y: 1.55 }}
         className={styles.buttonNav}
         onClick={() => {
           setToggleNav((prev) => !prev);
@@ -48,7 +57,7 @@ const Header = ({ intervalMode, setStartPath }) => {
             />
           )}
         </AnimatePresence>
-      </button>
+      </motion.button>
       <h1 className={styles.headerTitle}>{getTimerMode()}</h1>
     </div>
   );

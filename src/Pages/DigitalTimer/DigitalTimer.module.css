@@ -30,7 +30,11 @@
   border: 1px solid #333;
   border-radius: 5px;
   transform-origin: top;
-  background-color: #fff;
+  box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.5);
+  --border-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+  border-left: 2px solid var(--border-color);
 }
 .flipBox::before,
 .flipBox::after {

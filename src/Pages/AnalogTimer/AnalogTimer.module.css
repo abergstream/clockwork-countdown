@@ -27,7 +27,6 @@
   width: 45%;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%) rotate(270deg);
   transform-origin: 0% 50%;
   height: 2px;
   border-radius: 4px;

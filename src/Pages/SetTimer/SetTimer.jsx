@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import styles from "./SetTimer.module.css";
 import Icon from "@mdi/react";
 import { mdiChevronLeft, mdiChevronRight, mdiClose } from "@mdi/js";
 import { useNavigate } from "react-router-dom";
+window.oncontextmenu = (event) => {
+  event.preventDefault();
+  event.stopPropagation();
+  return false;
+};
 const SetTimer = ({
   timerValue,
   setTimerValue,
@@ -15,21 +20,33 @@ const SetTimer = ({
   startPath,
 }) => {
   const [direction, setDirection] = useState("");
+  const [trigger, setTrigger] = useState(0);
   const navigate = useNavigate();
-  const decreaseTimerValue = () => {
-    if (timerValue > 1) {
-      setDirection("left");
-      setTimeout(() => {
-        setTimerValue(timerValue - 1);
-      }, 5);
+  const intervalRef = useRef(null);
+  useLayoutEffect(() => {
+    if (direction === "left" && timerValue > 1) {
+      setTimerValue((prev) => prev - 1);
+    } else if (direction === "right" && timerValue < 60) {
+      setTimerValue((prev) => prev + 1);
     }
+  }, [direction, trigger]);
+  const decreaseTimerValue = () => {
+    setDirection("left");
+    setTrigger((prev) => prev + 1);
   };
   const increaseTimerValue = () => {
-    if (timerValue < 60) {
-      setDirection("right");
-      setTimeout(() => {
-        setTimerValue(parseInt(timerValue + 1));
-      }, 5);
+    setDirection("right");
+    setTrigger((prev) => prev + 1);
+  };
+  const holdInButton = (direction) => {
+    intervalRef.current = setInterval(() => {
+      direction == "increase" ? increaseTimerValue() : decreaseTimerValue();
+    }, 100);
+  };
+  const releaseButton = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
     }
   };
   return (
@@ -58,6 +75,8 @@ const SetTimer = ({
         <button
           className={styles.buttonTime}
           onClick={decreaseTimerValue}
+          onTouchStart={() => holdInButton("decrease")}
+          onTouchEnd={releaseButton}
           disabled={timerValue === 1}
         >
           <Icon path={mdiChevronLeft} size={3} />
@@ -66,6 +85,8 @@ const SetTimer = ({
         <button
           className={styles.buttonTime}
           onClick={increaseTimerValue}
+          onTouchStart={() => holdInButton("increase")}
+          onTouchEnd={releaseButton}
           disabled={timerValue === 60}
         >
           <Icon path={mdiChevronRight} size={3} />
