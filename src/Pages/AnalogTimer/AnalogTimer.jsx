@@ -4,21 +4,31 @@ import { motion } from "framer-motion";
 import ButtonAbort from "../../Components/Buttons/Buttons";
 
 const AnalogTimer = ({ timerFunctions }) => {
+  const calculateRotation = (divideBy) => {
+    // divideBy is used for calculating minuteRotation
+    const totalUnits =
+      (hours * 60 * 60) / divideBy +
+      (minutes * 60) / divideBy +
+      seconds / divideBy;
+    // 6 degrees per unit + 270 to align at the top
+    return totalUnits * 6 + 270;
+  };
+
   const { timer } = timerFunctions;
 
   const seconds = timer.getTimeValues().seconds;
   const minutes = timer.getTimeValues().minutes;
+  const hours = timer.getTimeValues().hours;
 
-  // Added 2 to seconds so the first useEffect running twice when rendered
-  const [secondRotation, setSecondRotation] = useState(270 + (seconds + 2) * 6);
-  const [minuteRotation, setMinuteRotation] = useState(270 + minutes * 6);
+  const [secondRotation, setSecondRotation] = useState(calculateRotation(1));
+  const [minuteRotation, setMinuteRotation] = useState(calculateRotation(60));
+
   useEffect(() => {
-    setSecondRotation((prev) => prev - 6);
+    setSecondRotation(calculateRotation(1));
   }, [seconds]);
 
   useEffect(() => {
-    // setMinuteRotation(270 + (minutes + 1) * 6);
-    setMinuteRotation(270 + (minutes + seconds / 60) * 6);
+    setMinuteRotation(calculateRotation(60));
   }, [seconds]);
   return (
     <div className="container">
@@ -29,14 +39,14 @@ const AnalogTimer = ({ timerFunctions }) => {
           className={styles.minutePointer}
         ></motion.div>
         <motion.div
-          initial={{ rotate: `${secondRotation - 12}deg`, y: "-50%" }}
+          initial={{ rotate: `${secondRotation}deg`, y: "-50%" }}
           animate={{ rotate: `${secondRotation}deg`, y: "-50%" }}
           className={styles.secondPointer}
         ></motion.div>
-        <div className={styles.timeContainer}>
-          {minutes.toString().length == 1 ? `0${minutes}` : minutes}:
-          {seconds.toString().length == 1 ? `0${seconds}` : seconds}
-        </div>
+      </div>
+      <div className={styles.timeContainer}>
+        {hours ? 60 : minutes.toString().length == 1 ? `0${minutes}` : minutes}:
+        {seconds.toString().length == 1 ? `0${seconds}` : seconds}
       </div>
       <ButtonAbort timerFunctions={timerFunctions} />
     </div>

@@ -7,9 +7,10 @@ const TextTimer = ({ timerFunctions }) => {
   const { timer } = timerFunctions;
   const seconds = timer.getTimeValues().seconds;
   const minutes = timer.getTimeValues().minutes;
-  const minutesInText = `${numbersInText[minutes]} ${
-    minutes != 1 ? "MINUTER" : "MINUT"
-  }`;
+  const hours = timer.getTimeValues().hours;
+  const minutesInText = hours
+    ? "60 MINUTER"
+    : `${numbersInText[minutes]} ${minutes === 1 ? "MINUT" : "MINUTER"}`;
 
   const secondsInText = `OCH ${numbersInText[seconds]}`;
   return (

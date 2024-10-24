@@ -7,42 +7,38 @@ const DigitalTimer = ({ timerFunctions }) => {
   const hours = timer.getTimeValues().hours;
   const seconds = timer.getTimeValues().seconds;
   const minutes = timer.getTimeValues().minutes;
+
+  // Splitting the seconds to first second and second second
   const [secondsFirst, setSecondsFirst] = useState(
-    seconds > 9 ? seconds.toString().substring(0, 1) : 0
+    seconds > 9 ? seconds.toString()[0] : 0
   );
   const [secondsSecond, setSecondsSecond] = useState(
-    seconds > 9
-      ? seconds.toString().substring(1, 2)
-      : seconds.toString().substring(0, 1)
+    seconds > 9 ? seconds.toString()[1] : seconds.toString()[0]
   );
+  // Splitting the minutes to first second and second minute
   const [minutesFirst, setMinutesFirst] = useState(
-    hours == 0 ? (minutes > 9 ? minutes.toString().substring(0, 1) : 0) : 6
+    hours == 0 ? (minutes > 9 ? minutes.toString()[0] : 0) : 6
   );
   const [minutesSecond, setMinutesSecond] = useState(
-    minutes > 9
-      ? minutes.toString().substring(1, 2)
-      : minutes.toString().substring(0, 1)
+    minutes > 9 ? minutes.toString()[1] : minutes.toString()[0]
   );
-  console.log("Minutes first: " + minutesFirst, hours, minutes);
+
+  // Changing seconds
   useEffect(() => {
-    const firstNumber = seconds > 9 ? seconds.toString().substring(0, 1) : 0;
+    const firstNumber = seconds > 9 ? seconds.toString()[0] : 0;
     const secondNumber =
-      seconds > 9
-        ? seconds.toString().substring(1, 2)
-        : seconds.toString().substring(0, 1);
+      seconds > 9 ? seconds.toString()[1] : seconds.toString()[0];
     setSecondsFirst(firstNumber);
     setSecondsSecond(secondNumber);
   }, [seconds]);
   useEffect(() => {
     const firstNumber =
-      hours == 0 ? (minutes > 9 ? minutes.toString().substring(0, 1) : 0) : 6;
+      hours == 0 ? (minutes > 9 ? minutes.toString()[0] : 0) : 6;
     const secondNumber =
-      minutes > 9
-        ? minutes.toString().substring(1, 2)
-        : minutes.toString().substring(0, 1);
+      minutes > 9 ? minutes.toString()[1] : minutes.toString()[0];
     setMinutesFirst(firstNumber);
     setMinutesSecond(secondNumber);
-  }, [seconds]);
+  }, [minutes]);
 
   const variants = {
     closed: {
