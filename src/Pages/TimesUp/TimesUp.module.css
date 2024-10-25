@@ -18,7 +18,7 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 0 0 4rem;
+  padding: 0 0 4rem 0;
   gap: 2rem;
   animation: ShakeBackground 0.25s linear infinite;
 }
