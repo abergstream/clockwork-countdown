@@ -70,8 +70,11 @@ const Nav = ({ toggleNav, setToggleNav, startPath, setStartPath }) => {
                     buttonDestinations[index] == startPath ? "underline" : "",
                 }}
                 onClick={() => {
-                  setStartPath(button);
-                  setToggleNav(false);
+                  // Prevents for chosing same path as is aldready set
+                  if (buttonDestinations[index] != startPath) {
+                    setStartPath(button);
+                    setToggleNav(false);
+                  }
                 }}
               >
                 {buttonTitles[index]}

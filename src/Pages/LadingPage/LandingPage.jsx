@@ -30,7 +30,7 @@ const LandingPage = () => {
           animate={{ opacity: isClicked ? 0 : 1 }}
           transition={{ delay: 0.75, duration: 0.75 }}
         >
-          C
+          <span className={styles.firstLetter}>C</span>
           <motion.div
             initial={"closed"}
             animate={isClicked ? "open" : "closed"}
@@ -40,7 +40,8 @@ const LandingPage = () => {
           >
             lockwork
           </motion.div>
-          C
+          <span className={styles.firstLetter}>C</span>
+
           <motion.div
             initial={"closed"}
             animate={isClicked ? "open" : "closed"}

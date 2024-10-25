@@ -20,10 +20,14 @@
   z-index: 98;
   font-size: 3rem;
 }
+.firstLetter {
+  border-bottom: 1px solid #fff;
+}
 .logoName {
   color: #aaa;
   overflow: hidden;
   font-size: 3rem;
+  border-bottom: 1px solid #aaa;
 }
 .transition {
   position: absolute;
