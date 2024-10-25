@@ -23,6 +23,7 @@ const SetTimer = ({
   const [trigger, setTrigger] = useState(0);
   const navigate = useNavigate();
   const intervalRef = useRef(null);
+  // useLayoutEffect instead of useEffect to make the animation animate correct
   useLayoutEffect(() => {
     if (direction === "left" && timerValue > 1) {
       setTimerValue((prev) => prev - 1);
@@ -30,19 +31,19 @@ const SetTimer = ({
       setTimerValue((prev) => prev + 1);
     }
   }, [direction, trigger]);
-  const decreaseTimerValue = () => {
-    setDirection("left");
+
+  const updateTimerValue = (change) => {
+    setDirection(change < 1 ? "left" : "right");
     setTrigger((prev) => prev + 1);
   };
-  const increaseTimerValue = () => {
-    setDirection("right");
-    setTrigger((prev) => prev + 1);
-  };
+
   const holdInButton = (direction) => {
+    const change = direction === "increase" ? 1 : -1;
     intervalRef.current = setInterval(() => {
-      direction == "increase" ? increaseTimerValue() : decreaseTimerValue();
+      updateTimerValue(change);
     }, 100);
   };
+
   const releaseButton = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
@@ -74,7 +75,6 @@ const SetTimer = ({
         </AnimatePresence>
         <button
           className={styles.buttonTime}
-          onClick={decreaseTimerValue}
           onTouchStart={() => holdInButton("decrease")}
           onTouchEnd={releaseButton}
           disabled={timerValue === 1}
@@ -84,7 +84,6 @@ const SetTimer = ({
         <div className={styles.minutesText}>minutes</div>
         <button
           className={styles.buttonTime}
-          onClick={increaseTimerValue}
           onTouchStart={() => holdInButton("increase")}
           onTouchEnd={releaseButton}
           disabled={timerValue === 60}
