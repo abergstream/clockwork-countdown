@@ -23,6 +23,7 @@ const SetTimer = ({
   const [trigger, setTrigger] = useState(0);
   const navigate = useNavigate();
   const intervalRef = useRef(null);
+  const holdTimeoutRef = useRef(null);
   // useLayoutEffect instead of useEffect to make the animation animate correct
   useLayoutEffect(() => {
     if (direction === "left" && timerValue > 1) {
@@ -40,10 +41,16 @@ const SetTimer = ({
   const handleValueChange = (direction, hold) => {
     const change = direction === "increase" ? 1 : -1;
     if (hold) {
-      intervalRef.current = setInterval(() => {
-        updateTimerValue(change);
-      }, 100);
+      holdTimeoutRef.current = setTimeout(() => {
+        intervalRef.current = setInterval(() => {
+          updateTimerValue(change);
+        }, 50);
+      }, 500); // 500ms hold delay
     } else {
+      // Clear hold timeout if not holding
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+
       updateTimerValue(change);
     }
   };
@@ -52,6 +59,9 @@ const SetTimer = ({
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
+      // Clear hold timeout if the button is released
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
     }
   };
   return (
