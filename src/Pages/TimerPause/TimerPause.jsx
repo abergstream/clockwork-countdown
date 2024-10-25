@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import styles from "./TimerPause.module.css";
 import { motion } from "framer-motion";
 const TimerPause = ({ timerFunctions }) => {
@@ -10,7 +9,8 @@ const TimerPause = ({ timerFunctions }) => {
     <div className={styles.container}>
       <h2 className={styles.pauseTitle}>Pause & breath</h2>
       <div className={styles.timeLeft}>
-        {minutes}.{seconds}
+        {minutes}.{seconds < 10 && 0}
+        {seconds}
       </div>
       <motion.button
         whileTap={{ scale: 0.97 }}

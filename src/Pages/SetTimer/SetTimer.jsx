@@ -37,11 +37,15 @@ const SetTimer = ({
     setTrigger((prev) => prev + 1);
   };
 
-  const holdInButton = (direction) => {
+  const handleValueChange = (direction, hold) => {
     const change = direction === "increase" ? 1 : -1;
-    intervalRef.current = setInterval(() => {
+    if (hold) {
+      intervalRef.current = setInterval(() => {
+        updateTimerValue(change);
+      }, 100);
+    } else {
       updateTimerValue(change);
-    }, 100);
+    }
   };
 
   const releaseButton = () => {
@@ -75,7 +79,9 @@ const SetTimer = ({
         </AnimatePresence>
         <button
           className={styles.buttonTime}
-          onTouchStart={() => holdInButton("decrease")}
+          // onClick in case you click for less than 100ms
+          onClick={() => handleValueChange("decrease")}
+          onTouchStart={() => handleValueChange("decrease", "hold")}
           onTouchEnd={releaseButton}
           disabled={timerValue === 1}
         >
@@ -84,7 +90,9 @@ const SetTimer = ({
         <div className={styles.minutesText}>minutes</div>
         <button
           className={styles.buttonTime}
-          onTouchStart={() => holdInButton("increase")}
+          // onClick in case you click for less than 100ms
+          onClick={() => handleValueChange("increase")}
+          onTouchStart={() => handleValueChange("increase", "hold")}
           onTouchEnd={releaseButton}
           disabled={timerValue === 60}
         >
