@@ -11,10 +11,9 @@ const LandingPage = () => {
   };
 
   const handleClick = () => {
+    const DELAY_MS = 2000;
     setIsClicked(true);
-    setTimeout(() => {
-      navigate("./timerStart");
-    }, 2000);
+    setTimeout(() => navigate("./timerStart"), DELAY_MS);
   };
 
   return (

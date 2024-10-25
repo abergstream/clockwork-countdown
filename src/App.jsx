@@ -28,6 +28,7 @@ function App() {
     setIsStarted(true);
     timer.start({
       countdown: true,
+      // startValues: { seconds: isPause ? pauseValue : timerValue },
       startValues: { minutes: isPause ? pauseValue : timerValue },
     });
   };

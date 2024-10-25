@@ -5,6 +5,11 @@ const Nav = ({ toggleNav, setToggleNav, startPath, setStartPath }) => {
   const variants = {
     open: {
       x: 0,
+      y: 0,
+      width: "100%",
+      height: "100svh",
+      backgroundColor: "rgba(0,0,0,.90)",
+      borderRadius: 0,
       transition: {
         ease: "easeOut",
         duration: 0.25,
@@ -13,7 +18,12 @@ const Nav = ({ toggleNav, setToggleNav, startPath, setStartPath }) => {
       },
     },
     closed: {
-      x: "-100%",
+      x: 13,
+      y: 13,
+      width: 0,
+      height: 0,
+      borderRadius: "5px",
+      backgroundColor: "#000",
       transition: {
         duration: 0.25,
         staggerChildren: 0.05,
@@ -23,12 +33,16 @@ const Nav = ({ toggleNav, setToggleNav, startPath, setStartPath }) => {
   };
   const variantsChildren = {
     open: {
+      y: 0,
       x: 0,
+      fontSize: "2.4rem",
       filter: "blur(0)",
     },
     closed: {
-      x: "-200%",
-      filter: "blur(5px)",
+      x: -50,
+      y: "-200%",
+      fontSize: ".5rem",
+      filter: "blur(2px)",
     },
   };
   const buttonDestinations = ["/analogTimer", "/digitalTimer", "/textTimer"];
